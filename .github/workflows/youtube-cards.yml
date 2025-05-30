@@ -27,14 +27,8 @@ jobs:
           echo "${{ steps.youtube-cards.outputs.markdown }}" > cards.md
 
           # Limpia el bloque anterior
-          sed -i '/<!-- BEGIN YOUTUBE-CARDS 
-          -->/,/<!-- END YOUTUBE-CARDS -->/c\
-          <!-- BEGIN YOUTUBE-CARDS -->\
-          <!-- END YOUTUBE-CARDS -->' README.md
+          sed -i '/<!-- BEGIN YOUTUBE-CARDS -->/,/<!-- END YOUTUBE-CARDS -->/c\<!-- BEGIN YOUTUBE-CARDS -->\<!-- END YOUTUBE-CARDS -->' README.md
 
           # Inserta las tarjetas
-          awk '/<!-- BEGIN YOUTUBE-CARDS -->/
-          {print; while((getline line < "cards.md") > 0) 
-          print line; found=1; next} /<!-- END 
-          YOUTUBE-CARDS -->/{found=0} !found' README.md > tmp.md
+          awk '/<!-- BEGIN YOUTUBE-CARDS -->/{print; while((getline line < "cards.md") > 0) print line; found=1; next} /<!-- END YOUTUBE-CARDS -->/{found=0} !found' README.md > tmp.md
           mv tmp.md README.md
