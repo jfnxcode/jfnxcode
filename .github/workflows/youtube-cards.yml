@@ -2,7 +2,7 @@ name: GitHub Readme YouTube Cards
 
 on:
   schedule:
-    - cron: "0 0 * * FRI"
+    - cron: "0 0 * * FRI"  # Cada viernes a medianoche
   workflow_dispatch:
 
 jobs:
@@ -25,8 +25,8 @@ jobs:
 
       - name: Insertar tarjetas en el README.md
         run: |
-          cards="${{ steps.youtube-cards.outputs.markdown }}"
-          awk "/<!-- BEGIN YOUTUBE-CARDS -->/{print; print cards; found=1; next} /<!-- END YOUTUBE-CARDS -->/{found=0} !found" cards="$cards" README.md > tmp.md
+          echo "${{ steps.youtube-cards.outputs.markdown }}" > cards.md
+          awk '/<!-- BEGIN YOUTUBE-CARDS -->/{print; while((getline line < "cards.md") > 0) print line; found=1; next} /<!-- END YOUTUBE-CARDS -->/{found=0} !found' README.md > tmp.md
           mv tmp.md README.md
 
       - name: Hacer commit y push si hubo cambios
