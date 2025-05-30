@@ -22,17 +22,19 @@ jobs:
         with:
           channel_id: UCSu6RatcPG8LXJtHUuAtiTQ
           comment_tag_name: YOUTUBE-CARDS
-          
       - name: Insertar tarjetas en el README.md
         run: |
           echo "${{ steps.youtube-cards.outputs.markdown }}" > cards.md
-          awk '/<!-- BEGIN YOUTUBE-CARDS -->/{print; while((getline line < "cards.md") > 0) print line; found=1; next} /<!-- END YOUTUBE-CARDS -->/{found=0} !found' README.md > tmp.md
-          mv tmp.md README.md
 
-      - name: Hacer commit y push si hubo cambios
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add README.md
-          git diff --cached --quiet || git commit -m "📺 Actualización automática de tarjetas de YouTube"
-          git push
+          # Limpia el bloque anterior
+          sed -i '/<!-- BEGIN YOUTUBE-CARDS 
+          -->/,/<!-- END YOUTUBE-CARDS -->/c\
+          <!-- BEGIN YOUTUBE-CARDS -->\
+          <!-- END YOUTUBE-CARDS -->' README.md
+
+          # Inserta las tarjetas
+          awk '/<!-- BEGIN YOUTUBE-CARDS -->/
+          {print; while((getline line < "cards.md") > 0) 
+          print line; found=1; next} /<!-- END 
+          YOUTUBE-CARDS -->/{found=0} !found' README.md > tmp.md
+          mv tmp.md README.md
