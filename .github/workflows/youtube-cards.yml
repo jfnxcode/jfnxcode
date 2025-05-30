@@ -1,20 +1,38 @@
 name: GitHub Readme YouTube Cards
+
 on:
   schedule:
-    - cron: "0 0 * * FRI"
+    - cron: "0 0 * * FRI" # Todos los viernes
   workflow_dispatch:
 
 jobs:
-  build:
+  update-readme:
     runs-on: ubuntu-latest
 
     permissions:
       contents: write
+
     steps:
-      - uses: DenverCoder1/github-readme-youtube-cards@main
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Generate YouTube Cards
+        uses: DenverCoder1/github-readme-youtube-cards@main
         id: youtube-cards
         with:
           channel_id: UCSu6RatcPG8LXJtHUuAtiTQ
           comment_tag_name: YOUTUBE-CARDS
-      - run: echo OUTPUT '${{ steps.youtube-cards.outputs.markdown }}'
-        shell: bash
+
+      - name: Replace comment tag in README.md
+        run: |
+          cards="${{ steps.youtube-cards.outputs.markdown }}"
+          awk "/<!-- YOUTUBE-CARDS:START -->/{print; print cards; found=1; next} /<!-- YOUTUBE-CARDS:END -->/{found=0} !found" cards="$cards" README.md > tmp.md
+          mv tmp.md README.md
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add README.md
+          git diff --cached --quiet || git commit -m "🔁 update: latest YouTube cards"
+          git push
