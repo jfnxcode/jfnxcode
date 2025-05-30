@@ -2,7 +2,7 @@ name: GitHub Readme YouTube Cards
 
 on:
   schedule:
-    - cron: "0 0 * * FRI" # Todos los viernes
+    - cron: "0 0 * * FRI"
   workflow_dispatch:
 
 jobs:
@@ -13,26 +13,26 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout repo
+      - name: Clonar el repositorio
         uses: actions/checkout@v3
 
-      - name: Generate YouTube Cards
+      - name: Generar tarjetas de YouTube
         uses: DenverCoder1/github-readme-youtube-cards@main
         id: youtube-cards
         with:
           channel_id: UCSu6RatcPG8LXJtHUuAtiTQ
           comment_tag_name: YOUTUBE-CARDS
 
-      - name: Replace comment tag in README.md
+      - name: Insertar tarjetas en el README.md
         run: |
           cards="${{ steps.youtube-cards.outputs.markdown }}"
-          awk "/<!-- YOUTUBE-CARDS:START -->/{print; print cards; found=1; next} /<!-- YOUTUBE-CARDS:END -->/{found=0} !found" cards="$cards" README.md > tmp.md
+          awk "/<!-- BEGIN YOUTUBE-CARDS -->/{print; print cards; found=1; next} /<!-- END YOUTUBE-CARDS -->/{found=0} !found" cards="$cards" README.md > tmp.md
           mv tmp.md README.md
 
-      - name: Commit and push if changed
+      - name: Hacer commit y push si hubo cambios
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add README.md
-          git diff --cached --quiet || git commit -m "🔁 update: latest YouTube cards"
+          git diff --cached --quiet || git commit -m "📺 Actualización automática de tarjetas de YouTube"
           git push
