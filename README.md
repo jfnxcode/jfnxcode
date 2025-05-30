@@ -30,8 +30,9 @@
 ## 🎥 Mis últimos videos de YouTube
 
 <!-- BEGIN YOUTUBE-CARDS -->
-jhvjvkjhvj
+🔁 Aquí se insertarán automáticamente los últimos videos de mi canal.
 <!-- END YOUTUBE-CARDS -->
+
 
 
 <!--
