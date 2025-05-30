@@ -30,7 +30,8 @@
 ## 🎥 Mis últimos videos de YouTube
 
 <!-- BEGIN YOUTUBE-CARDS -->
-🔁 Aquí se insertarán automáticamente los últimos videos de mi canal.
+[![Probando la pantalla Oled 1.3 in con i2c modelo SH1106 ⚡💻🤓 #esp32 #arduino #oled #i2c #bolivia](https://ytcards.demolab.com/?id=21_BWxIz3JA&title=Probando+la+pantalla+Oled+1.3+in+con+i2c+modelo+SH1106+%E2%9A%A1%F0%9F%92%BB%F0%9F%A4%93+%23esp32+%23arduino+%23oled+%23i2c+%23bolivia&lang=en&timestamp=1748096746&background_color=%230d1117&title_color=%23ffffff&stats_color=%23dedede&max_title_lines=1&width=250&border_radius=5 "Probando la pantalla Oled 1.3 in con i2c modelo SH1106 ⚡💻🤓 #esp32 #arduino #oled #i2c #bolivia")](https://www.youtube.com/watch?v=21_BWxIz3JA)
+[![🤯 Nueva Generación de Imagenes ChatGPT OpenAI 🤖](https://ytcards.demolab.com/?id=t_hX4Usy5yY&title=%F0%9F%A4%AF+Nueva+Generaci%C3%B3n+de+Imagenes+ChatGPT+OpenAI+%F0%9F%A4%96&lang=en&timestamp=1743557307&background_color=%230d1117&title_color=%23ffffff&stats_color=%23dedede&max_title_lines=1&width=250&border_radius=5 "🤯 Nueva Generación de Imagenes ChatGPT OpenAI 🤖")](https://www.youtube.com/watch?v=t_hX4Usy5yY)
 <!-- END YOUTUBE-CARDS -->
 
 
